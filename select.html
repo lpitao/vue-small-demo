@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0; font-family: "微软雅黑";font-size: 14px;}
+        #app {
+            width: 200px;
+            margin: 100px auto;
+        }
+        .tabs {
+            border: 1px solid #eeeeee;
+            width: 200px;            
+            overflow: hidden;
+        }
+        .tabs li {
+            border: 1px solid salmon;
+            list-style: none;
+            float: left;
+            width: 98px;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .active {
+            font-weight: bold;
+            color: white;
+            background-color: sandybrown;
+        }
+        .content {            
+            width: 200px;
+            margin: 0 auto;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border: 1px solid salmon;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul class="tabs">
+            <li @click="change('one')" :class="flag=='one'?'active':''"></li>
+            <li @click="change('two')" :class="flag=='two'?'active':''"></li>
+            <li @click="change('three')" :class="flag=='three'?'active':''"></li>
+        </ul>
+        <div class="content" v-show="flag=='one'">model One</div>
+        <div class="content" v-show="flag=='two'">model two</div>
+        <div class="content" v-show="flag=='three'">model three</div>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                flag:'one'
+            },
+            methods: {
+                change:function(num){
+                    this.flag = num;
+                },
+            },
+            mounted(){
+                
+            },
+            destroyed() {
+                window.removeEventListener('scroll',this.handleScroll)
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>router-hash</title>
+    </head>
+    <body>
+        <!-- 页面跳转修改hash -->
+        <a href="#/home">home</a>
+        <a href="#/about">about</a>
+        <div id="app"></div>
+    </body>
+    <script>
+        //页面加载完后根据hash显示页面内容
+        window.addEventListener('load', () => {
+            app.innerHTML = location.hash.slice(1)
+            console.log(location.hash,location)
+        })
+        //监听hash改变后修改页面显示内容
+        window.addEventListener('hashchange', () => {
+            app.innerHTML = location.hash.slice(1)
+        })
+    </script>
+</html>

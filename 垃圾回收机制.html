@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            //引用cishu
+            var a = {t:1};//对象[t:1}以下简称obj被引用一次
+            var b = a;//obj被引用两次
+            a = null;//obj现在为1次
+            b = null;//obj现在为0次，可回收
+        </script>
+    </body>
+</html>

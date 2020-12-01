@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    </head>
+    <body>
+        <div id="app" style="height:400px;overflow: scroll;">
+            <div style="height: 400px;"></div>
+        </div>
+        <script>
+            function debounce(fn, delay){
+                //维护一个timer,用来记录当前执行函数状态
+                let timer = null;
+                console.log(1)
+
+                return function(){
+                    //通过this和arguments获取函数的作用域和变量
+                    let context = this;
+                    let args = arguments;
+                    //清楚掉正在执行函数并重新执行
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        fn.apply(context, args);
+                    }, delay);
+                }
+            }
+            let flag = 0;//记录当前函数调用次数
+            //档用户滚动时被调用函数
+            function foo(){
+                flag++;
+                console.log('number of calls: %d', flag)
+            }
+
+            //在deboune 中包装我们的函数，过两秒触发一次
+            //app.addEventListener('scroll',debounce(foo,2000))
+       
+            function throttle(fn, delay){
+                let valid = true;
+                return function(){
+                    if(!valid){
+                        return false;
+                    }
+                    //gongzuoshijian，执行函数并且在间隔期内把状态设为无效
+                    valid = false;
+                    setTimeout(() => {
+                        fn();
+                        valid = true;
+                    }, delay);
+                }
+            }
+            function showTop(){
+                var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+                console.log('滚动条位置' + scrollTop);
+            }
+            app.addEventListener('scroll',throttle(showTop,2000))
+       
+       </script>
+    </body>
+</html>

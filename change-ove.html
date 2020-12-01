@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #app {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .box {
+            height: 100px;
+            margin: 10px 0;
+        }
+        .left {
+            float: left;
+            width: 10%;
+            height: 100px;
+            background-color: #333;
+            cursor: pointer;
+        }
+        .right {
+            float: right;
+            width: 90%;
+            height: 100px;
+            background-color: #ccc;
+        }
+        .left p {
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            color: #eee;
+        }
+        .right .content {
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background-color:salmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <div class="box">
+           <div class="left">
+               <p @click="toggleOne" v-if="showOne">隐藏</p>
+               <p @click="toggleOne" v-else>显示</p>
+           </div>
+           <div class="right">
+               <div class="content" v-show="showOne">内容一</div>
+           </div>
+       </div>
+       <div class="box">
+            <div class="left">
+                <p @click="toggleTwo" v-show="showTwo">隐藏</p>
+                <p @click="toggleTwo" v-show="showTwo == false">显示</p>
+            </div>
+            <div class="right">
+                <div class="content" v-show="showTwo">内容二</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="left">
+                <p @click="toggleThree">{{toggleThreeText}}</p>
+            </div>
+            <div class="right">
+                <div class="content" v-show="showThree">内容三
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                showOne: true,
+                showTwo: true,
+                showThree: true,
+                toggleThreeText: '隐藏'
+            },
+            methods: {
+                toggleOne:function(){
+                    this.showOne = !this.showOne
+                },
+                toggleTwo:function(){
+                    this.showTwo = !this.showTwo
+                },
+                toggleThree:function(){
+                    if(this.toggleThreeText === '隐藏'){
+                        this.toggleThreeText = '显示'
+                    }else{
+                        this.toggleThreeText = '隐藏'
+                    }
+                    this.showThree = !this.showThree
+                }
+            },
+            mounted(){
+                
+            },
+            destroyed() {
+                window.removeEventListener('scroll',this.handleScroll)
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            function a(){
+                console.log(this);//输出函数a中的this的值
+            }
+            function b(){};//定义函数b
+            var obj = {name:'onepixel'};//定义对象obj
+
+            console.log(a.call());//window
+            console.log(a.call(null));//window
+            console.log(a.call(undefined))
+            console.log(a.call(1));
+            console.log(a.call(true));
+
+            var aa = {
+                name:'onepixel',//定义aa的属性
+                say:function(){
+                    console.log("hi, i function a!")
+                }
+            }
+
+            function bcall(name){
+                console.log("Post params:" + name);
+                console.log("im" + this.name);
+                this.say();
+            }
+            bcall.call(aa,'text')
+
+            function bapply(x,y,z){
+                console.log(x,y,z);
+            }
+            bapply.apply(null,[1,2,3]);
+
+            function Animal(name,weight){
+                this.name = name;
+                this.weight = weight;
+            }
+            function Cat(){
+                Animal.call(this,'cat','50');
+                this.say = function(){
+                    console.log('im' + this.name+"my weight" + this.weight);
+                }
+            }
+            var cat = new Cat();
+            cat.say();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #app {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .box {
+            height: 100px;
+            margin: 10px 0;
+        }
+        .left {
+            float: left;
+            width: 10%;
+            height: 100px;
+            background-color: #333;
+            cursor: pointer;
+        }
+        .right {
+            float: right;
+            width: 90%;
+            height: 100px;
+            background-color: #ccc;
+        }
+        .left p {
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            color: #eee;
+        }
+        .right .content {
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background-color:salmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <Form ref="loginForm" :model="formInline" :rules="ruleInline">
+            <FormItem prop="user">
+                <Input @keyup.enter.native="handleSubmit" type="password" v-model="formInline.password" placeholder="请输入密码">
+                    <span slot="prepend"><Icon :size="14" type="locked"></Icon></span>
+                </Input>
+            </FormItem>
+        </Form>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+            
+            },
+            methods: {
+                 // 登录调用的方法
+                handleSubmit () {
+                    // 验证及验证之后的跳转        
+                }
+            }
+        })
+    </script>
+</body>
+</html>

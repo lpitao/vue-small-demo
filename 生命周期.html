@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title>生命周期学习</title>
+        <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <input v-model="message"></input>
+            <h1 ref="h1">{{message}}</h1>
+        </div>
+    </body>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: 'Vue的生命周期'
+            },
+            beforeCreate() {
+                console.group('---beforeCreate创建前状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            created() {
+                console.group('---Create创建完毕状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            beforeMount() {
+                console.group('---beforeMount挂载前状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            mounted() {
+                console.group('---Mount挂载结束状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            beforeUpdate() {
+                console.group('---beforeUpdate更新前状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            updated() {
+                console.group('---updated更新完成状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            beforeDestroy() {
+                console.group('---beforeDestroy销毁前状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+            destroyed() {
+                console.group('---destroyed销毁完成状态-----');
+                console.log("%c%s","clolor:red", "data:"+this.$data);
+                console.log("%c%s","color:red","message:"+this.message)
+                console.log("%c%s", "color:red","el:"+this.$el);
+                console.log("%c%s","color:red","ref:"+this.$refs.h1)
+            },
+        })
+    </script>
+</html>

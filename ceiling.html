@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #app {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .header, .model {
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            height: 300px;
+            line-height: 300px;
+            text-align: center;
+        }
+        .model {
+            height: 500px;
+            line-height: 500px;
+        }
+        .nav {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #eee;
+            overflow: hidden;
+        }
+        .nav li {
+            list-style: none;
+            width: 33.25%;
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #eee;
+        }
+        .nav li:last-child {
+            border-right: none;
+        }
+        .active{
+            background: #FF7D41;
+            color: #FFFFFF;
+        }
+        .is-fixed{
+            position: fixed;
+            top: 0;
+            z-index: 9;
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul class="nav" :class="isFixed == true?'is-fixed':''">
+            <li @click="change('one')" :class="flag=='one'?'active':''"></li>
+            <li @click="change('two')" :class="flag=='two'?'active':''"></li>
+            <li @click="change('three')" :class="flag=='three'?'active':''"></li>
+        </ul>
+        <div class="model" id="one">model One</div>
+        <div class="model" id="two">model two</div>
+        <div class="model" id="three">model three</div>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                flag:'one',
+                isFixed: false
+            },
+            methods: {
+                change:function(id){
+                    this.flag = id;
+                    this.positionToId(id)
+                },
+                handleScroll(){
+                    let windowScrollY = window.scrollY;
+                    console.log(windowScrollY)
+                    if(windowScrollY > 300){
+                        this.isFixed = true;
+                    }else{
+                        this.isFixed = false
+                    }
+                },
+                positionToId(id){
+                    let jump = document.querySelector("#" + id)
+                    let total = jump.offsetTop;
+                    //Chrome
+                    document.body.scrollTop = total;
+                    //firefox
+                    document.documentElement.scrollTop = total;
+                    //safari
+                    window.pageYOffset = total
+                }
+            },
+            mounted(){
+                if (document.all){
+                    console.log(1)
+                    window.attachEvent('onscroll',this.handleScroll)//IE中
+                }
+                else{
+                    window.addEventListener('scroll',this.handleScroll,false);//firefox
+                }
+            },
+            destroyed() {
+                window.removeEventListener('scroll',this.handleScroll)
+            },
+        })
+    </script>
+</body>
+</html>

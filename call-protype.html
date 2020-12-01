@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            Function.prototype.myCall = function(context){
+                //1.判断没有传入要绑定的对象
+                var content = Object(context) || window;
+                //2.给context添加一个fn属性，值为this
+                content.fn = this;
+                //3.保存返回值
+                let result = '';
+                //4.取出传递的参数，第一个参数是this
+                //截取除第一个参数外剩余参数的方法
+                const args = [...arguments].slice(1);
+
+                //5.执行方法，传入参数
+                //...是es6的展开数组
+                result = content.fn(...args);
+
+                //6.删除该属性
+                delete content.fn
+
+                //7.返回结果
+                return result;
+            }
+            //测试用例
+            const obj = {
+                value: 'hello call'
+            }
+            function fn(name,age){
+                return {
+                    value: this.value,
+                    name,
+                    age
+                }
+            }
+            let res = fn.myCall(obj,'li',25);
+            console.log(res)
+
+
+            Function.prototype.myApply = function(context, args){
+                var context = Object(context) || window;
+                context.fn = this;
+                let result = '';
+
+                //判断有没有传入第二参数args，如果传入久将第二个参数
+                if(!args){
+                    //没有传入，直接返回函数
+                    result = context.fn();
+                }else{
+                    //传入，将参数展开
+                    result = context.fn(...args);
+                }
+                delete context.fn;
+                return result;
+            }
+            const obj2 = {
+                value:'hello apply'
+            }
+            function fn2(name,age){
+                return {
+                    value:this.value,
+                    name,
+                    age
+                }
+            }
+            let res2 = fn2.myApply(obj2,['ll',34]);
+            console.log(res2);
+
+            Function.prototype.myBind = function(context){
+                //1.判断this是不是一个函数
+                if(typeof this !== 'function'){
+                    //不是函数，抛出错误
+                    throw new Error('不是函数');
+                }
+
+                //2.暂存this
+                const self = this;
+
+                //3.获取传入的参数
+                const args1 = [...arguments].slice(1);
+                //第二次调用bindFn
+                const bindFn = function(){
+                    //获取第二个参数
+                    const args2 = [...arguments];
+                    //将第一部分参数和第二部分参数合并到一起，进行返回
+                    return self.apply(context, args1.concat(args2));
+                }
+                return bindFn
+            }
+            const obj3= {
+                value:'hello bind'
+            }
+            function fn3(name,age){
+                return{
+                    value:this.value,
+                    name,
+                    age
+                }
+            }
+            let res3 = fn3.myBind(obj3)('hh',39)
+            console.log(res3)
+        </script>
+    </body>
+</html>

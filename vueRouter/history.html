@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>router-history</title>
+    </head>
+    <body>
+        <!-- 点击后调用go函数跳转路由-->
+        <a onclick="go('/homel')">home</a>
+        <a onclick="go('about')">about</a>
+        <div id="app"></div>
+    </body>
+    <script>
+        console.log(window.history)
+        //修改history记录及页面内容
+        function go(pathname){
+            //history.pushState(state, title, url);
+            history.pushState(pathname, 'title没有任何浏览器支持', '?t=' + pathname)
+            // window.history.pushState(null,'',pathname)
+            app.innerHTML = pathname
+        }
+        //监听浏览器的前进后退并修改页面内容
+        window.addEventListener('popstate', () => {
+            app.innerHTML = location.pathname
+        })
+    </script>
+</html>

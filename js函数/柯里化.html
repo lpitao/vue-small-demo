@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+           //函数柯里化
+           function curry(fn){
+               //除了第一个函数名获取剩下的参数
+               var args = Array.prototype.slice.call(arguments,1);
+               //返回一个匿名函数
+               return function(){
+                   //首先获取所有匿名函数的参数
+                   var innerArgs = Array.prototype.slice.call(arguments);
+                   //将上面的函数参数列表参数连接上后面函数调用的时候给的参数 构成完成的参数数组
+                   var finalArgs = args.concat(innerArgs);
+                   //使用apply来执行这些参数列表
+                   return fn.apply(null, finalArgs)
+               }
+           }
+           function sayWelcome(str, name) {
+                console.log(str + " : " + name);
+            }
+           var sayHelloPostbird = curry(sayWelcome, "Hello", "Postbird");
+            sayHelloPostbird(); // Hello : Postbird
+            var sayNoting = curry(sayWelcome);
+            sayNoting("hi","ptbird") // hi : ptbird
+            var sayError = curry(sayWelcome);
+            sayError();
+
+            //函数柯里化es6
+            function addCure(){
+                let args = [].slice.call(arguments);
+
+                let outerAdd = function(){
+                    var innerAdd = function(){
+                        args.push(...arguments);
+                        return innerAdd
+                    };
+
+                    innerAdd.toString = function(){
+                        return args.reduce(function(a,b){
+                            return a+b;
+                        })
+                    };
+                    return innerAdd;
+                }
+                return outerAdd(...args);
+            }
+            console.log(addCure(1)(2)(3)(4));
+            console.log(addCure(1,2,3,4));
+            console.log(addCure(1,2)(3,4));
+            console.log(addCure(1,2,3)(4));
+        </script>
+    </body>
+</html>
